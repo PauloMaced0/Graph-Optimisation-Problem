@@ -17,14 +17,12 @@ def exhaustive_search(G, weights):
     for r in range(1, len(nodes) + 1):
         for subset in itertools.combinations(nodes, r):
             total_configs_tested += 1
-            num_basic_operations += 1  # Counting the combination generation as a basic operation
+            num_basic_operations += 1
             if is_dominating_set(G, subset):
-                num_basic_operations += len(subset)  # Counting checks within is_dominating_set
                 weight = sum(weights[v] for v in subset)
-                num_basic_operations += len(subset)  # Counting the sum operation
                 if weight < min_weight:
                     min_weight = weight
                     min_dominating_set = subset
     end_time = time.time()
     execution_time = end_time - start_time
-    return min_dominating_set, min_weight, total_configs_tested, execution_time, num_basic_operations
+    return min_dominating_set, min_weight, total_configs_tested, execution_time * 1000, num_basic_operations

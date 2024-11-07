@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import csv
 import networkx as nx
+import itertools
 from greedy_heuristic import greedy_dominating_set
 from graph_gen import generate_random_graph
 
@@ -79,45 +80,99 @@ def visualize_results():
             row['greedy_ops'] = int(row['greedy_ops'])
             row['precision'] = float(row['precision']) if row['precision'] != '' else None
             results.append(row)
-    # Separate results based on densities
+
     densities = sorted(set([r['density'] for r in results]))
+    markers = itertools.cycle(('o', 'x', '^', 's', 'D', '*'))
+    colors = itertools.cycle(('b', 'g', 'r', 'c', 'm', 'y'))
+
+    # Plot execution time for Greedy Heuristic
+    plt.figure(figsize=(10, 6))
     for density in densities:
         density_results = [r for r in results if r['density'] == density]
         ns = [r['n'] for r in density_results]
-        # Plot execution time
-        plt.figure(figsize=(10, 6))
-        exhaustive_times = [r['exhaustive_time'] for r in density_results]
         greedy_times = [r['greedy_time'] for r in density_results]
-        plt.plot(ns, exhaustive_times, label='Exhaustive Search', marker='o')
-        plt.plot(ns, greedy_times, label='Greedy Heuristic', marker='x')
-        plt.xlabel('Number of Vertices (n)')
-        plt.ylabel('Execution Time (seconds)')
-        plt.title(f'Execution Time vs Number of Vertices (Density={density})')
-        plt.legend()
-        plt.grid(True)
-        plt.savefig(f'plots/execution_time_density_{density}.png')
-        plt.show()
-        # Plot number of basic operations
-        plt.figure(figsize=(10, 6))
-        exhaustive_ops = [r['exhaustive_ops'] for r in density_results]
+        plt.plot(ns, greedy_times, label=f'Density={density}', marker=next(markers), color=next(colors))
+    plt.xlabel('Number of Vertices (n)')
+    plt.ylabel('Execution Time (milliseconds)')
+    plt.title('Greedy Heuristic Execution Time vs Number of Vertices')
+    plt.legend()
+    plt.grid(True)
+    plt.savefig('plots/execution_time_greedy_all_densities.png')
+    plt.show()
+
+    # Reset markers and colors for the next plot
+    markers = itertools.cycle(('o', 'x', '^', 's', 'D', '*'))
+    colors = itertools.cycle(('b', 'g', 'r', 'c', 'm', 'y'))
+
+    # Plot execution time for Exhaustive Search
+    plt.figure(figsize=(10, 6))
+    for density in densities:
+        density_results = [r for r in results if r['density'] == density]
+        ns = [r['n'] for r in density_results]
+        exhaustive_times = [r['exhaustive_time'] for r in density_results]
+        plt.plot(ns, exhaustive_times, label=f'Density={density}', marker=next(markers), color=next(colors))
+    plt.xlabel('Number of Vertices (n)')
+    plt.ylabel('Execution Time (milliseconds)')
+    plt.title('Exhaustive Search Execution Time vs Number of Vertices')
+    plt.legend()
+    plt.grid(True)
+    plt.savefig('plots/execution_time_exhaustive_all_densities.png')
+    plt.show()
+
+    # Reset markers and colors again
+    markers = itertools.cycle(('o', 'x', '^', 's', 'D', '*'))
+    colors = itertools.cycle(('b', 'g', 'r', 'c', 'm', 'y'))
+
+    # Plot number of basic operations for Greedy Heuristic
+    plt.figure(figsize=(10, 6))
+    for density in densities:
+        density_results = [r for r in results if r['density'] == density]
+        ns = [r['n'] for r in density_results]
         greedy_ops = [r['greedy_ops'] for r in density_results]
-        plt.plot(ns, exhaustive_ops, label='Exhaustive Search', marker='o')
-        plt.plot(ns, greedy_ops, label='Greedy Heuristic', marker='x')
-        plt.xlabel('Number of Vertices (n)')
-        plt.ylabel('Number of Basic Operations')
-        plt.title(f'Basic Operations vs Number of Vertices (Density={density})')
-        plt.legend()
-        plt.grid(True)
-        plt.savefig(f'plots/basic_ops_density_{density}.png')
-        plt.show()
-        # Plot precision
-        plt.figure(figsize=(10, 6))
-        precisions = [r['precision'] for r in density_results if r['precision'] is not None]
-        ns_precision = [r['n'] for r in density_results if r['precision'] is not None]
-        plt.plot(ns_precision, precisions, label='Precision', marker='o')
-        plt.xlabel('Number of Vertices (n)')
-        plt.ylabel('Precision (Greedy Weight / Optimal Weight)')
-        plt.title(f'Precision of Greedy Heuristic (Density={density})')
-        plt.grid(True)
-        plt.savefig(f'plots/precision_density_{density}.png')
-        plt.show()
+        plt.plot(ns, greedy_ops, label=f'Density={density}', marker=next(markers), color=next(colors))
+    plt.xlabel('Number of Vertices (n)')
+    plt.ylabel('Number of Basic Operations')
+    plt.title('Greedy Heuristic Basic Operations vs Number of Vertices')
+    plt.legend()
+    plt.grid(True)
+    plt.savefig('plots/basic_ops_greedy_all_densities.png')
+    plt.show()
+
+    # Reset markers and colors
+    markers = itertools.cycle(('o', 'x', '^', 's', 'D', '*'))
+    colors = itertools.cycle(('b', 'g', 'r', 'c', 'm', 'y'))
+
+    # Plot number of basic operations for Exhaustive Search
+    plt.figure(figsize=(10, 6))
+    for density in densities:
+        density_results = [r for r in results if r['density'] == density]
+        ns = [r['n'] for r in density_results]
+        exhaustive_ops = [r['exhaustive_ops'] for r in density_results]
+        plt.plot(ns, exhaustive_ops, label=f'Density={density}', marker=next(markers), color=next(colors))
+    plt.xlabel('Number of Vertices (n)')
+    plt.ylabel('Number of Basic Operations')
+    plt.title('Exhaustive Search Basic Operations vs Number of Vertices')
+    plt.legend()
+    plt.grid(True)
+    plt.savefig('plots/basic_ops_exhaustive_all_densities.png')
+    plt.show()
+
+    # Reset markers and colors
+    markers = itertools.cycle(('o', 'x', '^', 's', 'D', '*'))
+    colors = itertools.cycle(('b', 'g', 'r', 'c', 'm', 'y'))
+
+    # Plot precision of Greedy Heuristic
+    plt.figure(figsize=(10, 6))
+    for density in densities:
+        density_results = [r for r in results if r['density'] == density and r['precision'] is not None]
+        ns_precision = [r['n'] for r in density_results]
+        precisions = [r['precision'] for r in density_results]
+        if ns_precision:  # Check if the list is not empty
+            plt.plot(ns_precision, precisions, label=f'Density={density}', marker=next(markers), color=next(colors))
+    plt.xlabel('Number of Vertices (n)')
+    plt.ylabel('Precision (Greedy Weight / Optimal Weight)')
+    plt.title('Precision of Greedy Heuristic')
+    plt.legend()
+    plt.grid(True)
+    plt.savefig('plots/precision_all_densities.png')
+    plt.show()
