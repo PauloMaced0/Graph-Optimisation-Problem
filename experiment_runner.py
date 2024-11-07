@@ -16,7 +16,7 @@ def run_experiments(max_n, densities, seed):
             # Save the graph using GraphML
             nx.write_graphml(G, f"graphs/graph_n{n}_d{density}.graphml")
             # Run exhaustive search if feasible
-            if n <= 21:  # Adjust this limit based on your computational resources
+            if n <= 23:  # Adjust this limit based on your computational resources
                 (exhaustive_set, min_weight, total_configs_tested,
                  exec_time_exhaustive, num_ops_exhaustive) = exhaustive_search(G, weights)
                 # visualize_dominating_set(G, exhaustive_set, n, density)
