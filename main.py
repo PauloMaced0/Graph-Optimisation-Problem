@@ -10,8 +10,9 @@ def main():
         os.makedirs('plots')
 
     # Define parameters
-    max_n = 200  # Adjust based on computational resources
+    max_n = 25  # Adjust based on computational resources
     densities = [0.125, 0.25, 0.5, 0.75]
+    # densities = [0.75]
     seed = 102620 
     # Run experiments
     run_experiments(max_n, densities, seed)

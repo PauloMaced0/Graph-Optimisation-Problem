@@ -19,6 +19,7 @@ def run_experiments(max_n, densities, seed):
             if n <= 23:  # Adjust this limit based on your computational resources
                 (exhaustive_set, min_weight, total_configs_tested,
                  exec_time_exhaustive, num_ops_exhaustive) = exhaustive_search(G, weights)
+                # print(f"Exhaustive min dominating set weight: {min_weight}")
                 # visualize_dominating_set(G, exhaustive_set, n, density)
             else:
                 min_weight = None
@@ -28,6 +29,7 @@ def run_experiments(max_n, densities, seed):
             # Run greedy heuristic
             (greedy_set, greedy_weight, exec_time_greedy,
              num_ops_greedy) = greedy_dominating_set(G, weights)
+            # print(f"Greedy min dominating set weight: {greedy_weight}")
             # visualize_dominating_set(G, greedy_set, n, density)
 
             # Calculate precision if possible
