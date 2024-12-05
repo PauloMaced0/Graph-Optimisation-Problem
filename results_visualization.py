@@ -78,7 +78,11 @@ def visualize_results():
             row['greedy_weight'] = float(row['greedy_weight'])
             row['greedy_time'] = float(row['greedy_time'])
             row['greedy_ops'] = int(row['greedy_ops'])
-            row['precision'] = float(row['precision']) if row['precision'] != '' else None
+            row['greedy_precision'] = float(row['greedy_precision']) if row['greedy_precision'] != '' else None
+            row['randomized_weight'] = float(row['randomized_weight']) if row['randomized_weight'] != '' else None
+            row['randomized_time'] = float(row['randomized_time']) if row['randomized_time'] != '' else None
+            row['randomized_ops'] = int(row['randomized_ops']) if row['randomized_ops'] != '' else None
+            row['randomized_precision'] = float(row['randomized_precision']) if row['randomized_precision'] != '' else None
             results.append(row)
 
     densities = sorted(set([r['density'] for r in results]))
@@ -164,9 +168,9 @@ def visualize_results():
     # Plot precision of Greedy Heuristic
     plt.figure(figsize=(10, 6))
     for density in densities:
-        density_results = [r for r in results if r['density'] == density and r['precision'] is not None]
+        density_results = [r for r in results if r['density'] == density and r['greedy_precision'] is not None]
         ns_precision = [r['n'] for r in density_results]
-        precisions = [r['precision'] for r in density_results]
+        precisions = [r['greedy_precision'] for r in density_results]
         if ns_precision:  # Check if the list is not empty
             plt.plot(ns_precision, precisions, label=f'Density={density}', marker=next(markers), color=next(colors))
     plt.xlabel('Number of Vertices (n)')
@@ -175,4 +179,51 @@ def visualize_results():
     plt.legend()
     plt.grid(True)
     plt.savefig('plots/precision_all_densities.png')
+    plt.show()
+
+    # Plot execution time for Randomized Algorithm
+    plt.figure(figsize=(10, 6))
+    for density in densities:
+        density_results = [r for r in results if r['density'] == density]
+        ns = [r['n'] for r in density_results]
+        randomized_times = [r['randomized_time'] for r in density_results]
+        plt.plot(ns, randomized_times, label=f'Density={density}', marker=next(markers), color=next(colors))
+    plt.xlabel('Number of Vertices (n)')
+    plt.ylabel('Execution Time (milliseconds)')
+    plt.title('Randomized Algorithm Execution Time vs Number of Vertices')
+    plt.legend()
+    plt.grid(True)
+    plt.savefig('plots/execution_time_randomized_all_densities.png')
+    plt.show()
+
+    # Plot precision of Randomized Algorithm
+    plt.figure(figsize=(10, 6))
+    for density in densities:
+        density_results = [r for r in results if r['density'] == density and r['randomized_precision'] is not None]
+        ns_precision = [r['n'] for r in density_results]
+        randomized_precisions = [r['randomized_precision'] for r in density_results]
+        if ns_precision:  # Check if the list is not empty
+            plt.plot(ns_precision, randomized_precisions, label=f'Density={density}', marker=next(markers), color=next(colors))
+    plt.xlabel('Number of Vertices (n)')
+    plt.ylabel('Precision (Randomized Weight / Optimal Weight)')
+    plt.title('Precision of Randomized Algorithm')
+    plt.legend()
+    plt.grid(True)
+    plt.savefig('plots/precision_randomized_all_densities.png')
+    plt.show()
+
+    # Plot number of basic operations for Randomized Algorithm
+    plt.figure(figsize=(10, 6))
+    for density in densities:
+        density_results = [r for r in results if r['density'] == density and r['randomized_ops'] is not None]
+        ns_ops = [r['n'] for r in density_results]
+        randomized_ops = [r['randomized_ops'] for r in density_results]
+        if ns_ops:  # Check if the list is not empty
+            plt.plot(ns_ops, randomized_ops, label=f'Density={density}', marker=next(markers), color=next(colors))
+    plt.xlabel('Number of Vertices (n)')
+    plt.ylabel('Number of Basic Operations')
+    plt.title('Randomized Algorithm Basic Operations vs Number of Vertices')
+    plt.legend()
+    plt.grid(True)
+    plt.savefig('plots/basic_ops_randomized_all_densities.png')
     plt.show()

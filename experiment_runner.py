@@ -4,6 +4,7 @@ from graph_gen import generate_random_graph
 from exhaustive_search import exhaustive_search
 from greedy_heuristic import greedy_dominating_set
 from results_visualization import visualize_dominating_set
+from randomized_search import randomized_mwds
 
 def run_experiments(max_n, densities, seed):
     results = []
@@ -19,7 +20,7 @@ def run_experiments(max_n, densities, seed):
             if n <= 23:  # Adjust this limit based on your computational resources
                 (exhaustive_set, min_weight, total_configs_tested,
                  exec_time_exhaustive, num_ops_exhaustive) = exhaustive_search(G, weights)
-                # print(f"Exhaustive min dominating set weight: {min_weight}")
+                print(f"Exhaustive min dominating set weight: {min_weight}")
                 # visualize_dominating_set(G, exhaustive_set, n, density)
             else:
                 min_weight = None
@@ -32,11 +33,18 @@ def run_experiments(max_n, densities, seed):
             # print(f"Greedy min dominating set weight: {greedy_weight}")
             # visualize_dominating_set(G, greedy_set, n, density)
 
+            (randomized_set, randomized_weight, exec_time_random, num_ops_random) = randomized_mwds(G, weights, max_iterations=1000, max_time=5000)
+            # print(f"Random min dominating set weight: {randomized_weight}")
+            # print(f"Random execution time: {exec_time_random}")
+            # visualize_dominating_set(G, randomized_set, n, density)
+
             # Calculate precision if possible
             if min_weight is not None:
-                precision = greedy_weight / min_weight
+                greedy_precision = greedy_weight / min_weight
+                randomized_precision = randomized_weight / min_weight
             else:
-                precision = None
+                greedy_precision = None
+                randomized_precision = None
             # Record the results
             results.append({
                 'n': n,
@@ -48,7 +56,11 @@ def run_experiments(max_n, densities, seed):
                 'greedy_weight': greedy_weight,
                 'greedy_time': exec_time_greedy,
                 'greedy_ops': num_ops_greedy,
-                'precision': precision
+                'greedy_precision': greedy_precision,
+                'randomized_weight': randomized_weight,
+                'randomized_time': exec_time_random,
+                'randomized_ops': num_ops_random,
+                'randomized_precision': randomized_precision
             })
         # Save results to CSV
         keys = results[0].keys()
