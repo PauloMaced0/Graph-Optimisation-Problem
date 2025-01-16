@@ -1,7 +1,5 @@
 # Minimum Weighted Dominating Set (Graph Optimization Problems)
 
-## Abstract
-
 This project explores the effectiveness of greedy heuristics and randomized search algorithms in solving the **Minimum Weighted Dominating Set (MWDS)** problem on specific graphs and others randomly generated. The MWDS problem is a classic combinatorial optimization challenge with applications in network design, resource allocation, and social network analysis. 
 
 Our approach involves generating undirected graphs with varying sizes and edge densities, assigning random weights to nodes to simulate real-world variability. We implement three algorithms:
@@ -46,9 +44,9 @@ is minimized. A dominating set satisfies the condition that every vertex not in 
 1. Initialize the dominating set $D = \emptyset$ and the set of dominated vertices $S = \emptyset$.
 2. While $S \neq V$:
     1. For each vertex $v \notin D$, calculate a heuristic value, e.g.,
-    $$ 
+    $ 
     h(v) = \frac{d(v) + 1}{w(v)},
-    $$ 
+    $ 
     where $d(v)$ is the number of undominated neighbors.
     2. Select the vertex $v$ with the minimal $h(v)$.
     3. Add $v$ to $D$ and update $S$ by adding $v$ and its neighbors.
@@ -75,7 +73,7 @@ is minimized. A dominating set satisfies the condition that every vertex not in 
 ### Exhaustive Search
 
 - **Total Subsets:** There are $2^n$ possible subsets for $n$ vertices.
-- **Dominating Set Check:** For each subset $D$, verify if every vertex $v \notin D is adjacent to at least one vertex in $D$. This can be done in $\mathcal{O}(n^2)$ time for each subset.
+- **Dominating Set Check:** For each subset $D$, verify if every vertex $v \notin D$ is adjacent to at least one vertex in $D$. This can be done in $\mathcal{O}(n^2)$ time for each subset.
 - **Total Complexity:** $\mathcal{O}(2^n \cdot n^2)$.
 
 ### Greedy Heuristic
@@ -86,7 +84,7 @@ is minimized. A dominating set satisfies the condition that every vertex not in 
 
 ### Randomized Search
 
-- **Each Iteration:** Shuffling the vertex order takes $\mathcal{O}(n)$ time. Checking adjacency for each vertex to determine whether it can be added to the candidate solution takes \( \mathcal{O}(n) \) time.
+- **Each Iteration:** Shuffling the vertex order takes $\mathcal{O}(n)$ time. Checking adjacency for each vertex to determine whether it can be added to the candidate solution takes $\mathcal{O}(n)$ time.
 - **Total Iterations:** $MaxIterations$.
 - **Total Complexity:** $\mathcal{O}(n^2 \cdot MaxIterations)$.
 
@@ -121,19 +119,19 @@ The evaluation encompasses several key metrics, including:
 Execution time grows exponentially with the number of vertices.
 
 1. **Express $T(n)$ in Terms of an Exponential Function:**
-    $$
+    $
     T(n) = k \times 2^{n}
-    $$
+    $
     where $k$ is a constant representing the time taken per basic operation.
 2. **Calculate the Ratio of $T(30)$ to $T(16)$:**
-    $$
+    $
     \frac{T(30)}{T(16)} = \frac{2^{30}}{2^{16}} = 2^{14} = 16384
-    $$
+    $
 3. **Compute $T(30)$ Using the Known Value of $T(16)$:**
     Given $T(16) = 0.125$ seconds:
-    $$
+    $
     T(30) = 0.125 \text{ seconds} \times 16384 = 2048 \text{ seconds}
-    $$
+    $
 
 ### Greedy Heuristic
 
@@ -144,38 +142,38 @@ Execution time increases quadratically with the number of vertices.
 - How much time will a graph with 5000 nodes take?
 
 1. **Express $T(n)$ in Terms of a Quadratic Function:**
-    $$
+    $
     T(n) = k \times n^2
-    $$
+    $
     where $k$ is a constant representing the time taken per basic operation.
 2. **Calculate the Ratio of $T(5000)$ to $T(1000)$:**
-    $$
+    $
     \frac{T(5000)}{T(1000)} = \frac{5000^2}{1000^2} = 25
-    $$
+    $
 3. **Compute $T(5000)$ Using the Known Value of $T(1000)$:**
     Given $$T(1000) = 0.2$ seconds:
-    $$
+    $
     T(5000) = 0.2 \text{ seconds} \times 25 = 5 \text{ seconds}
-    $$
+    $
 
 ### Randomized Search
 
 Execution time increases quadratically but may exhibit different behavior due to algorithm parameters.
 
 1. **Express $T(n)$ in Terms of a Quadratic Function:**
-    $$
+    $
     T(n) = k \times n^2
-    $$
+    $
     where $k$ is a constant representing the time taken per basic operation.
 2. **Calculate the Ratio of $T(10000)$ to $T(1000)$:**
-    $$
+    $
     \frac{T(10000)}{T(1000)} = \frac{10000^2}{1000^2} = 100
-    $$
+    $
 3. **Compute $T(10000)$ Using the Known Value of $T(1000)$:**
     Given $T(1000) = 0.21$ seconds:
-    $$
+    $
     T(10000) = 0.21 \times 100 = 21 \text{ seconds}
-    $$
+    $
     *Note:* In reality, this estimation doesn't correspond to the actual behavior due to parameters that limit the Randomized Search, resulting in significantly lower execution times.
 
 ---
@@ -194,28 +192,25 @@ Execution time increases quadratically but may exhibit different behavior due to
 
 - **Randomized Search:**
     - **Expected:** Quadratically time complexity $\mathcal{O}(n^2 \cdot MaxIterations)$.
-    - **Observed:** Execution time grows linearly with $n$, as seen in Figure \ref{fig:random_execution_time}. The configuration parameters of the Randomized Search algorithm ensure that its execution time scales linearly with the size of the graph.
-
-![Random Algorithm Execution Time\label{fig:random_execution_time}](execution_time_randomized_all_densities.png)  
-*Figure: Random Algorithm execution throughout different graph densities
+    - **Observed:** Execution time grows linearly with $n$. The configuration parameters of the Randomized Search algorithm ensure that its execution time scales linearly with the size of the graph.
 
 ### Impact of Vertex Number on Operation Count
 
-![Random Algorithm Execution Time\label{fig:random_operation_number}](basic_ops_randomized_all_densities.png)  
-*Figure: Random Algorithm Execution Time across different graph densities*
+![Random Algorithm Execution Time](basic_ops_randomized_all_densities.png)  
+**Figure 1**: Random Algorithm Execution Time across different graph densities*
 
-Figure \ref{fig:random_operation_number} displays the number of operations performed by the Random algorithm as graph density increases. Notably, the number of operations remains relatively constant regardless of the graph’s density. This is because the total number of operations is primarily influenced by the number of iterations and the number of vertices, both of which are independent of the graph's edge density. This design ensures that the Random algorithm maintains a consistent operational count even as the complexity of the graph increases, highlighting its scalability.
+**Figure 1** displays the number of operations performed by the Random algorithm as graph density increases. Notably, the number of operations remains relatively constant regardless of the graph’s density. This is because the total number of operations is primarily influenced by the number of iterations and the number of vertices, both of which are independent of the graph's edge density. This design ensures that the Random algorithm maintains a consistent operational count even as the complexity of the graph increases, highlighting its scalability.
 
 ### Relation Between Execution Time and Graph Density
 
 #### Exhaustive Search
 
-Exhaustive search, though guaranteed to find the optimal solution, quickly becomes impractical as the size and density of the graph increase. Figure \ref{fig:exhaustive_execution_time} illustrates the execution time of the exhaustive algorithm across various graph densities, highlighting a clear trend of rising computation times with increasing density.
+Exhaustive search, though guaranteed to find the optimal solution, quickly becomes impractical as the size and density of the graph increase. **Figure 3** illustrates the execution time of the exhaustive algorithm across various graph densities, highlighting a clear trend of rising computation times with increasing density.
 
-The primary reason for this escalation lies in the combinatorial nature of the exhaustive search method. Specifically, the exhaustive algorithm evaluates all possible subsets of vertices to identify the **Minimum Weighted Dominating Set (MWDS)**. The number of such subsets grows exponentially with the number of vertices, following the order of \( 2^n \), where \( n \) is the number of vertices in the graph. As graph density increases, the number of edges rises, leading to a more interconnected graph. This heightened connectivity means that each vertex has more neighbors, thereby increasing the complexity of determining whether a particular subset qualifies as a dominating set.
+The primary reason for this escalation lies in the combinatorial nature of the exhaustive search method. Specifically, the exhaustive algorithm evaluates all possible subsets of vertices to identify the **Minimum Weighted Dominating Set (MWDS)**. The number of such subsets grows exponentially with the number of vertices, following the order of $2^n$, where $n$ is the number of vertices in the graph. As graph density increases, the number of edges rises, leading to a more interconnected graph. This heightened connectivity means that each vertex has more neighbors, thereby increasing the complexity of determining whether a particular subset qualifies as a dominating set.
 
-![Exhaustive Algorithm Execution Time\label{fig:exhaustive_execution_time}](execution_time_exhaustive_all_densities.png)  
-*Figure: Exhaustive Algorithm Execution Time across different graph densities*
+![Exhaustive Algorithm Execution Time}](execution_time_exhaustive_all_densities.png)  
+**Figure 2**: Exhaustive Algorithm Execution Time across different graph densities*
 
 #### Greedy Heuristic
 
@@ -227,10 +222,10 @@ The primary reason for this escalation lies in the combinatorial nature of the e
 2. **Number of Iterations Decreases with Density:**
     - **Denser Graphs Require Fewer Dominating Nodes:** In dense graphs, a single node can dominate many others due to high connectivity. The dominating set $D$ can be much smaller. Fewer iterations of the outer while loop are needed to dominate all nodes.
 
-As shown in Figure \ref{fig:greedy_execution_time}, execution time decreases because the reduction in iterations outweighs the increase in per-iteration cost.
+As shown in **Figure 4**, execution time decreases because the reduction in iterations outweighs the increase in per-iteration cost.
 
-![Greedy Algorithm Execution Time\label{fig:greedy_execution_time}](execution_time_greedy_all_densities.png)
-*Figure: Greedy Algorithm Execution Time across different graph densities*
+![Greedy Algorithm Execution Time](execution_time_greedy_all_densities.png)
+**Figure 3**: Greedy Algorithm Execution Time across different graph densities*
 
 #### Randomized Search
 
@@ -242,7 +237,10 @@ As shown in Figure \ref{fig:greedy_execution_time}, execution time decreases bec
 2. **Number of Iterations Decreases with Density:**
     - **Fewer Dominating Nodes Needed in Dense Graphs:** Dense graphs exhibit high connectivity, allowing a single node to dominate many others. Consequently, the size of the dominating set $D$ is reduced, necessitating fewer iterations of the algorithm to achieve domination of all nodes.
 
-As illustrated in Figure \ref{fig:random_execution_time}, the decrease in execution time required to dominate the graph outweighs the increase in the cost per iteration. Although each iteration may incur a higher computational load as a result of increased node degrees, the overall number of iterations decreases significantly. This results in a net decrease in total execution time as density increases.
+As illustrated in **Figure 4**, the decrease in execution time required to dominate the graph outweighs the increase in the cost per iteration. Although each iteration may incur a higher computational load as a result of increased node degrees, the overall number of iterations decreases significantly. This results in a net decrease in total execution time as density increases.
+
+![Random Algorithm Execution Time](execution_time_randomized_all_densities.png)  
+**Figure 4**: Random Algorithm execution throughout different graph densities
 
 ### Precision of Algorithms
 
@@ -311,7 +309,7 @@ A ratio of **1.00** signifies that the randomized search has achieved an optimal
 | 21              | 9.41          | 6.91              | 1.36 |
 | 22              | 7.73          | 7.19              | 1.08 |
 
-**Note:** Ratios greater than 1 (red color) indicate that the randomized algorithm's weight exceeds that of the exhaustive search.
+**Note:** Ratios greater than $1$ indicate that the randomized algorithm's weight exceeds that of the exhaustive search.
 
 ### Algorithm Benchmark
 
