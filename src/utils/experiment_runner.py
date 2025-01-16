@@ -1,10 +1,9 @@
 import networkx as nx
 import csv
 from graph_gen import generate_random_graph
-from exhaustive_search import exhaustive_search
-from greedy_heuristic import greedy_dominating_set
-from results_visualization import visualize_dominating_set
-from randomized_search import randomized_mwds
+from src.algorithms.exhaustive_search import exhaustive_search
+from src.algorithms.randomized_search import randomized_mwds 
+from src.algorithms.greedy_heuristic import greedy_dominating_set
 
 def run_experiments(max_n, densities, seed):
     results = []

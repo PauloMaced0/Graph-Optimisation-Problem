@@ -1,6 +1,6 @@
 import os
-from experiment_runner import run_experiments
-from results_visualization import visualize_results
+from src.utils.experiment_runner import run_experiments
+from src.utils.results_visualization import visualize_results 
 
 def main():
     # Create directories if they don't exist

@@ -2,9 +2,9 @@ import networkx as nx
 import random
 import os
 
-from exhaustive_search import exhaustive_search
-from greedy_heuristic import greedy_dominating_set
-from randomized_search import randomized_mwds
+from src.algorithms.exhaustive_search import exhaustive_search
+from src.algorithms.greedy_heuristic import greedy_dominating_set
+from src.algorithms.randomized_search import randomized_mwds
 
 def read_graph(file_path):
     """
@@ -39,7 +39,7 @@ def read_graph(file_path):
         
         if u != v:  # Avoid self-loops
             graph.add_edge(u, v)
-    
+
     return graph, num_vertices, num_edges, node_weights
 
 def process_graphs(folder_path):
@@ -48,7 +48,7 @@ def process_graphs(folder_path):
     """
     results = {}
     for file_name in os.listdir(folder_path):
-        if file_name.endswith(".txt") and file_name != "README.txt" and file_name != "SWlargeG.txt":
+        if file_name.endswith(".txt") and file_name != "SWlargeG.txt":
             file_path = os.path.join(folder_path, file_name)
             print(f"Processing {file_name}...")
             
@@ -84,7 +84,7 @@ def process_graphs(folder_path):
     return results
 
 if __name__ == "__main__":
-    folder_path = "./SW_ALGUNS_GRAFOS"  # Replace with the path to your folder
+    folder_path = "./data"
     results = process_graphs(folder_path)
     
     for file_name, result in results.items():

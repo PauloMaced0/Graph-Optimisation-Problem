@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 import csv
 import networkx as nx
 import itertools
-from greedy_heuristic import greedy_dominating_set
 from graph_gen import generate_random_graph
+from src.algorithms.greedy_heuristic import greedy_dominating_set
 
 def visualize_initial_graph(G, n, density):
     plt.figure(figsize=(8, 6))
