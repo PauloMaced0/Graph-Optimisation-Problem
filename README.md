@@ -44,12 +44,9 @@ is minimized. A dominating set satisfies the condition that every vertex not in 
 1. Initialize the dominating set $D = \emptyset$ and the set of dominated vertices $S = \emptyset$.
 2. While $S \neq V$:
     1. For each vertex $v \notin D$, calculate a heuristic value, e.g.,
-    $ 
-    h(v) = \frac{d(v) + 1}{w(v)},
-    $ 
-    where $d(v)$ is the number of undominated neighbors.
-    2. Select the vertex $v$ with the minimal $h(v)$.
-    3. Add $v$ to $D$ and update $S$ by adding $v$ and its neighbors.
+       $$h(v) = \frac{d(v) + 1}{w(v)}$$, where $d(v)$ is the number of undominated neighbors.
+    3. Select the vertex $v$ with the minimal $h(v)$.
+    4. Add $v$ to $D$ and update $S$ by adding $v$ and its neighbors.
 
 ### Randomized Search
 
@@ -98,7 +95,7 @@ We generated random graphs with varying numbers of vertices $n$ and edge densiti
 
 The graph generation process involves several key components:
 
-- **Vertices:** Randomly placed points in the 2D plane with integer coordinates between 1 and 1000.
+- **Vertices:** Randomly placed points in the 2D plane with integer coordinates between $1$ and $1000$.
 - **Weights:** Assigned as positive values to vertices.
 - **Edges:** Added randomly while ensuring the desired edge density and avoiding vertices that are too close to each other.
 
@@ -119,61 +116,41 @@ The evaluation encompasses several key metrics, including:
 Execution time grows exponentially with the number of vertices.
 
 1. **Express $T(n)$ in Terms of an Exponential Function:**
-    $
-    T(n) = k \times 2^{n}
-    $
+    $$T(n) = k \times 2^{n}$$
     where $k$ is a constant representing the time taken per basic operation.
 2. **Calculate the Ratio of $T(30)$ to $T(16)$:**
-    $
-    \frac{T(30)}{T(16)} = \frac{2^{30}}{2^{16}} = 2^{14} = 16384
-    $
+    $$\frac{T(30)}{T(16)} = \frac{2^{30}}{2^{16}} = 2^{14} = 16384$$
 3. **Compute $T(30)$ Using the Known Value of $T(16)$:**
-    Given $T(16) = 0.125$ seconds:
-    $
-    T(30) = 0.125 \text{ seconds} \times 16384 = 2048 \text{ seconds}
-    $
+   Given $T(16) = 0.125$ seconds:
+   $$T(30) = 0.125 \text{ seconds} \times 16384 = 2048 \text{ seconds}$$
 
 ### Greedy Heuristic
 
 Execution time increases quadratically with the number of vertices.
 
 **Suppose:**
-- Processing a graph with 1000 nodes takes 0.2 seconds.
-- How much time will a graph with 5000 nodes take?
+- Processing a graph with $1000$ nodes takes $0.2$ seconds.
+- How much time will a graph with $5000$ nodes take?
 
 1. **Express $T(n)$ in Terms of a Quadratic Function:**
-    $
-    T(n) = k \times n^2
-    $
-    where $k$ is a constant representing the time taken per basic operation.
-2. **Calculate the Ratio of $T(5000)$ to $T(1000)$:**
-    $
-    \frac{T(5000)}{T(1000)} = \frac{5000^2}{1000^2} = 25
-    $
-3. **Compute $T(5000)$ Using the Known Value of $T(1000)$:**
-    Given $$T(1000) = 0.2$ seconds:
-    $
-    T(5000) = 0.2 \text{ seconds} \times 25 = 5 \text{ seconds}
-    $
+   $$T(n) = k \times n^2$$
+   where $k$ is a constant representing the time taken per basic operation.
+3. **Calculate the Ratio of $T(5000)$ to $T(1000)$:**
+   $$\frac{T(5000)}{T(1000)} = \frac{5000^2}{1000^2} = 25$$
+5. **Compute $T(5000)$ Using the Known Value of $T(1000)$:**Given $$T(1000) = 0.2$ seconds:
+   $$T(5000) = 0.2 \text{ seconds} \times 25 = 5 \text{ seconds}$$
 
 ### Randomized Search
 
 Execution time increases quadratically but may exhibit different behavior due to algorithm parameters.
 
 1. **Express $T(n)$ in Terms of a Quadratic Function:**
-    $
-    T(n) = k \times n^2
-    $
+   $$T(n) = k \times n^2$$
     where $k$ is a constant representing the time taken per basic operation.
-2. **Calculate the Ratio of $T(10000)$ to $T(1000)$:**
-    $
-    \frac{T(10000)}{T(1000)} = \frac{10000^2}{1000^2} = 100
-    $
-3. **Compute $T(10000)$ Using the Known Value of $T(1000)$:**
-    Given $T(1000) = 0.21$ seconds:
-    $
-    T(10000) = 0.21 \times 100 = 21 \text{ seconds}
-    $
+3. **Calculate the Ratio of $T(10000)$ to $T(1000)$:**
+   $$\frac{T(10000)}{T(1000)} = \frac{10000^2}{1000^2} = 100$$
+4. **Compute $T(10000)$ Using the Known Value of $T(1000)$:**Given $T(1000) = 0.21$ seconds:
+   $$T(10000) = 0.21 \times 100 = 21 \text{ seconds}$$
     *Note:* In reality, this estimation doesn't correspond to the actual behavior due to parameters that limit the Randomized Search, resulting in significantly lower execution times.
 
 ---
@@ -197,7 +174,7 @@ Execution time increases quadratically but may exhibit different behavior due to
 ### Impact of Vertex Number on Operation Count
 
 ![Random Algorithm Execution Time](basic_ops_randomized_all_densities.png)  
-**Figure 1**: Random Algorithm Execution Time across different graph densities*
+**Figure 1**: Random Algorithm Basic Operations across different graph densities
 
 **Figure 1** displays the number of operations performed by the Random algorithm as graph density increases. Notably, the number of operations remains relatively constant regardless of the graph’s density. This is because the total number of operations is primarily influenced by the number of iterations and the number of vertices, both of which are independent of the graph's edge density. This design ensures that the Random algorithm maintains a consistent operational count even as the complexity of the graph increases, highlighting its scalability.
 
@@ -205,12 +182,12 @@ Execution time increases quadratically but may exhibit different behavior due to
 
 #### Exhaustive Search
 
-Exhaustive search, though guaranteed to find the optimal solution, quickly becomes impractical as the size and density of the graph increase. **Figure 3** illustrates the execution time of the exhaustive algorithm across various graph densities, highlighting a clear trend of rising computation times with increasing density.
+Exhaustive search, though guaranteed to find the optimal solution, quickly becomes impractical as the size and density of the graph increase. **Figure 2** illustrates the execution time of the exhaustive algorithm across various graph densities, highlighting a clear trend of rising computation times with increasing density.
 
 The primary reason for this escalation lies in the combinatorial nature of the exhaustive search method. Specifically, the exhaustive algorithm evaluates all possible subsets of vertices to identify the **Minimum Weighted Dominating Set (MWDS)**. The number of such subsets grows exponentially with the number of vertices, following the order of $2^n$, where $n$ is the number of vertices in the graph. As graph density increases, the number of edges rises, leading to a more interconnected graph. This heightened connectivity means that each vertex has more neighbors, thereby increasing the complexity of determining whether a particular subset qualifies as a dominating set.
 
 ![Exhaustive Algorithm Execution Time}](execution_time_exhaustive_all_densities.png)  
-**Figure 2**: Exhaustive Algorithm Execution Time across different graph densities*
+**Figure 2**: Exhaustive Algorithm Execution Time across different graph densities
 
 #### Greedy Heuristic
 
@@ -222,10 +199,10 @@ The primary reason for this escalation lies in the combinatorial nature of the e
 2. **Number of Iterations Decreases with Density:**
     - **Denser Graphs Require Fewer Dominating Nodes:** In dense graphs, a single node can dominate many others due to high connectivity. The dominating set $D$ can be much smaller. Fewer iterations of the outer while loop are needed to dominate all nodes.
 
-As shown in **Figure 4**, execution time decreases because the reduction in iterations outweighs the increase in per-iteration cost.
+As shown in **Figure 3**, execution time decreases because the reduction in iterations outweighs the increase in per-iteration cost.
 
 ![Greedy Algorithm Execution Time](execution_time_greedy_all_densities.png)
-**Figure 3**: Greedy Algorithm Execution Time across different graph densities*
+**Figure 3**: Greedy Algorithm Execution Time across different graph densities
 
 #### Randomized Search
 
@@ -246,7 +223,7 @@ As illustrated in **Figure 4**, the decrease in execution time required to domin
 
 #### Greedy Heuristic
 
-Table \ref{tab:greedy_exhaustive_comparison} presents a comparison between the Greedy heuristic and Exhaustive search algorithms across various node counts within a graph of fixed density (0.75). The **Ratio (Greedy/Exhaustive)** column serves as a primary indicator of the greedy algorithm's precision relative to the optimal solutions obtained from exhaustive search.
+The next table presents a comparison between the Greedy heuristic and Exhaustive search algorithms across various node counts within a graph of fixed density (0.75). The **Ratio (Greedy/Exhaustive)** column serves as a primary indicator of the greedy algorithm's precision relative to the optimal solutions obtained from exhaustive search.
 
 $$
 \text{Ratio} = \frac{\text{Greedy Weight}}{\text{Exhaustive Weight}}
@@ -377,6 +354,6 @@ This study investigated the effectiveness of **greedy heuristics** and **randomi
 
 ### Future Work:
 
-Attempts to apply the current algorithms to extremely large graphs (e.g., $n = 1,000,000$ vertices) revealed significant scalability limitations. For instance, the Greedy algorithm was estimated to take approximately 55.5 hours to complete on such large-scale problems, rendering it impractical. This underscores the need to explore alternative algorithms or optimization techniques that can handle massive graphs more efficiently.
+Attempts to apply the current algorithms to extremely large graphs (e.g., $n = 1,000,000$ vertices) revealed significant scalability limitations. For instance, the Greedy algorithm was estimated to take approximately $55.5$ hours to complete on such large-scale problems, rendering it impractical. This underscores the need to explore alternative algorithms or optimization techniques that can handle massive graphs more efficiently.
 
 ---
